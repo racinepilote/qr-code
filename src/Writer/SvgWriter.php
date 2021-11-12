@@ -16,7 +16,7 @@ final class SvgWriter implements WriterInterface
 {
     public const DECIMAL_PRECISION = 10;
     public const WRITER_OPTION_BLOCK_ID = 'block_id';
-    public const WRITER_OPTION_FILL_NONE = false;
+    public const WRITER_OPTION_FILL = 'WRITER_OPTION_FILL';
     public const WRITER_OPTION_EXCLUDE_XML_DECLARATION = 'exclude_xml_declaration';
     public const WRITER_OPTION_FORCE_XLINK_HREF = 'force_xlink_href';
 
@@ -30,8 +30,8 @@ final class SvgWriter implements WriterInterface
             $options[self::WRITER_OPTION_EXCLUDE_XML_DECLARATION] = false;
         }
 
-        if (!isset($options[self::WRITER_OPTION_FILL_NONE])) {
-            $options[self::WRITER_OPTION_FILL_NONE] = false;
+        if (!isset($options[self::WRITER_OPTION_FILL])) {
+            $options[self::WRITER_OPTION_FILL] = false;
         }
 
         $matrixFactory = new MatrixFactory();
@@ -56,12 +56,11 @@ final class SvgWriter implements WriterInterface
         $background->addAttribute('y', '0');
         $background->addAttribute('width', strval($matrix->getOuterSize()));
         $background->addAttribute('height', strval($matrix->getOuterSize()));
-        if($options[self::WRITER_OPTION_FILL_NONE]){
+        if($options[self::WRITER_OPTION_FILL]){
             $background->addAttribute('fill', 'none');
         }else{
             $background->addAttribute('fill', '#'.sprintf('%02x%02x%02x', $qrCode->getBackgroundColor()->getRed(), $qrCode->getBackgroundColor()->getGreen(), $qrCode->getBackgroundColor()->getBlue()));
         }
-        $background->addAttribute('fill', '#'.sprintf('%02x%02x%02x', $qrCode->getBackgroundColor()->getRed(), $qrCode->getBackgroundColor()->getGreen(), $qrCode->getBackgroundColor()->getBlue()));
         $background->addAttribute('fill-opacity', strval($qrCode->getBackgroundColor()->getOpacity()));
 
         for ($rowIndex = 0; $rowIndex < $matrix->getBlockCount(); ++$rowIndex) {
