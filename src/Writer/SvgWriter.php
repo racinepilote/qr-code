@@ -14,15 +14,9 @@ use Endroid\QrCode\Writer\Result\SvgResult;
 
 final class SvgWriter implements WriterInterface
 {
-    private bool $fill;
-
-    public function __construct(bool $fill = false)
-    {
-        $this->fill = $fill;
-    }
-
     public const DECIMAL_PRECISION = 10;
     public const WRITER_OPTION_BLOCK_ID = 'block_id';
+    public const WRITER_OPTION_FILL_NONE = false;
     public const WRITER_OPTION_EXCLUDE_XML_DECLARATION = 'exclude_xml_declaration';
     public const WRITER_OPTION_FORCE_XLINK_HREF = 'force_xlink_href';
 
@@ -34,6 +28,10 @@ final class SvgWriter implements WriterInterface
 
         if (!isset($options[self::WRITER_OPTION_EXCLUDE_XML_DECLARATION])) {
             $options[self::WRITER_OPTION_EXCLUDE_XML_DECLARATION] = false;
+        }
+
+        if (!isset($options[self::WRITER_OPTION_FILL_NONE])) {
+            $options[self::WRITER_OPTION_FILL_NONE] = false;
         }
 
         $matrixFactory = new MatrixFactory();
@@ -58,7 +56,7 @@ final class SvgWriter implements WriterInterface
         $background->addAttribute('y', '0');
         $background->addAttribute('width', strval($matrix->getOuterSize()));
         $background->addAttribute('height', strval($matrix->getOuterSize()));
-        if($this->fill){
+        if($options[self::WRITER_OPTION_FILL_NONE]){
             $background->addAttribute('fill', 'none');
         }else{
             $background->addAttribute('fill', '#'.sprintf('%02x%02x%02x', $qrCode->getBackgroundColor()->getRed(), $qrCode->getBackgroundColor()->getGreen(), $qrCode->getBackgroundColor()->getBlue()));

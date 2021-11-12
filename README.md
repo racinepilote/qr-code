@@ -19,7 +19,7 @@ as PNG, SVG, EPS or in binary format.
 Use [Composer](https://getcomposer.org/) to install the library.
 
 ``` bash
-$ composer require endroid/qr-code
+$ composer require racinepilote/qr-code
 ```
 
 ## Usage: using the builder
