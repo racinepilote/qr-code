@@ -1,14 +1,19 @@
 {
-    "name": "endroid/qr-code",
-    "description": "Endroid QR Code",
+    "name": "racinepilote/qr-code",
+    "description": "Endroid QR Code v2",
     "keywords": ["endroid", "qrcode", "qr", "code", "php"],
-    "homepage": "https://github.com/endroid/qr-code",
+    "homepage": "https://github.com/racinepilote/qr-code",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Jeroen van den Enden",
             "email": "info@endroid.nl"
+        },
+        {
+
+            "name": "Racine Pilote",
+            "email": "racinepilote@gmail.com"
         }
     ],
     "require": {
