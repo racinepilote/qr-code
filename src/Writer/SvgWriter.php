@@ -14,6 +14,13 @@ use Endroid\QrCode\Writer\Result\SvgResult;
 
 final class SvgWriter implements WriterInterface
 {
+    private bool $fill;
+
+    public function __construct(bool $fill = false)
+    {
+        $this->fill = $fill;
+    }
+
     public const DECIMAL_PRECISION = 10;
     public const WRITER_OPTION_BLOCK_ID = 'block_id';
     public const WRITER_OPTION_EXCLUDE_XML_DECLARATION = 'exclude_xml_declaration';
@@ -51,6 +58,11 @@ final class SvgWriter implements WriterInterface
         $background->addAttribute('y', '0');
         $background->addAttribute('width', strval($matrix->getOuterSize()));
         $background->addAttribute('height', strval($matrix->getOuterSize()));
+        if($this->fill){
+            $background->addAttribute('fill', 'none');
+        }else{
+            $background->addAttribute('fill', '#'.sprintf('%02x%02x%02x', $qrCode->getBackgroundColor()->getRed(), $qrCode->getBackgroundColor()->getGreen(), $qrCode->getBackgroundColor()->getBlue()));
+        }
         $background->addAttribute('fill', '#'.sprintf('%02x%02x%02x', $qrCode->getBackgroundColor()->getRed(), $qrCode->getBackgroundColor()->getGreen(), $qrCode->getBackgroundColor()->getBlue()));
         $background->addAttribute('fill-opacity', strval($qrCode->getBackgroundColor()->getOpacity()));
 
